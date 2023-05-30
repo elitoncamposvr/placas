@@ -2,49 +2,36 @@
 <html lang="pt-br">
 
 <head>
-  <title>Enfance - Entrar no Sistema</title>
-
-  <!-- Meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo BASE_URL; ?>assets/images/favicon.ico">
-
-  <!-- FontAwesome JS-->
-  <script defer src="<?php echo BASE_URL; ?>assets/plugins/fontawesome/js/all.js"></script>
-
-  <!-- App CSS -->
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/login.css" />
+    <title>Painel Administrativo - Entrar</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="<?php echo BASE_URL; ?>assets/images/favicon.ico">
+    <script defer src="<?php echo BASE_URL; ?>assets/plugins/fontawesome/js/all.js"></script>
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/login.css" />
 </head>
 
-<body>
-  <div class="container">
-    <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="Logo Enlace">
-    <form method="POST">
-      <?php if (isset($error) && !empty($error)) : ?>
-        <div class="warning"><?php echo $error; ?></div>
-      <?php endif; ?>
-      <div id="warning_caps">AVISO! Tecla Caps Lock está ativada.</div>
-      <input type="text" name="email" id="email" placeholder="NOME DE USUÁRIO" autocomplete="off" required autofocus>
-      <input type="password" name="password" id="password" placeholder="DIGITE A SUA SENHA" autocomplete="off" required>
-      <p><button type="submit">logar</button></p><br>
-    </form>
-
-  </div>
-
-
-  <script>
-    const input = document.getElementById("password");
-    const text = document.getElementById("warning_caps");
-    input.addEventListener("keyup", function(event) {
-
-      if (event.getModifierState("CapsLock")) {
-        text.style.display = "block";
-      } else {
-        text.style.display = "none"
-      }
-    });
-  </script>
+<body class="h-screen w-full bg-slate-300 flex justify-center items-center">
+    <div class="w-96 mx-auto bg-white p-3 shadow-md rounded-lg">
+        <form method="POST">
+            <?php if (isset($error) && !empty($error)) : ?>
+                <div class="warning"><?php echo $error; ?></div>
+            <?php endif; ?>
+            <h1 class="py-3 text-center">[LOGO OU SLOGAN]</h1>
+            <h2 class="font-semibold text-center p-3">Entrar no sistema</h2>
+            <div class="w-full mb-5">
+                <label for="email">E-mail</label>
+                <input class="w-full p-2 border rounded-md" type="email" name="email" id="email" required autofocus>
+            </div>
+            <div class="w-full mb-8">
+                <label for="email">Senha</label>
+                <input class="w-full p-2 border rounded-md" type="password" name="password" id="password" required>
+            </div>
+            <div class="w-full mb-4">
+                <button class="w-full bg-sky-700 rounded-md p-2 text-white" type="submit">Entrar</button>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

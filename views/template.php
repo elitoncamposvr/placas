@@ -9,34 +9,28 @@
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo BASE_URL; ?>assets/images/favicon.ico" />
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/fonts/fontawesome/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>assets/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>assets/css/mobile.css" />
-
-	<!-- Jquery JS-->
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery-3.4.0.min.js"></script>
 </head>
 
-<body>
-	<div class="container">
-		<header>
-			<nav>
-				<div class="open-menu" onclick="openMenu()"><i class="fa-solid fa-bars fa-lg"></i></div>
-				<div class="logo">Enfance</div>
-				<ul class="menu">
-					<li><a href="<?php echo BASE_URL; ?>">Visão Geral</a></li>
-					<li><a href="<?php echo BASE_URL; ?>requests">Solicitações</a></li>
-					<li><a href="<?php echo BASE_URL; ?>reports">Relatórios</a></li>
-				</ul>
-				<span>
-					<a href="<?php echo BASE_URL; ?>login/logout"><i class="fa-solid fa-right-from-bracket fa-lg"></i></a>
-				</span>
+<body class="bg-slate-200">
+	<header class="w-full bg-sky-950 h-16">
+		<div class="container h-16 flex justify-between items-center mx-auto text-white">
+			<span>[LOGO]</span>
+			<nav class="font-medium">
+				<a class="px-3 hover:text-slate-400" href="<?php echo BASE_URL; ?>">DASHBOARD</a>
+				<a class="px-3 hover:text-slate-400" href="<?php echo BASE_URL; ?>boardrequests">SOLICITAÇÕES</a>
+				<a class="px-3 hover:text-slate-400" href="<?php echo BASE_URL; ?>reports">RELATÓRIOS</a>
 			</nav>
-		</header>
-		<div class="main-content">
-			<?php $this->loadViewInTemplate($viewName, $viewData); ?>
+			<span>
+				<a class="hover:text-slate-400" href="<?php echo BASE_URL; ?>login/logout"><i class="fa-solid fa-right-from-bracket fa-lg"></i></a>
+			</span>
 		</div>
-	</div>
+	</header>
 
-	<script src="<?php echo BASE_URL; ?>assets/js/main_script.js"></script>
+	<main class="container mx-auto py-3">
+		<?php $this->loadViewInTemplate($viewName, $viewData); ?>
+	</main>
+
 	<script src="<?php echo BASE_URL; ?>assets/js/dropdown_itens.js"></script>
 </body>
 

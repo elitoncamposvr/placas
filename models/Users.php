@@ -55,10 +55,10 @@ class Users extends model
 		unset($_SESSION['ccUser']);
 	}
 
-	public function getSchool()
+	public function getCompany()
 	{
-		if (isset($this->userInfo['school_id'])) {
-			return $this->userInfo['school_id'];
+		if (isset($this->userInfo['id_company'])) {
+			return $this->userInfo['id_company'];
 		} else {
 			return 0;
 		}
