@@ -17,22 +17,11 @@ class homeController extends controller
         $data = array();
         $u = new Users();
 		$u->setLoggedUser();
-        $company = new Companies($u->getSchool());
+        $company = new Companies($u->getCompany());
         $data['company_name'] = $company->getName();
         $data['user_email'] = $u->getEmail();
 
         $this->loadTemplate('home', $data);
     }
 
-    public function unauthorized()
-    {
-        $data = array();
-        $u = new Users();
-        $u->setLoggedUser();
-        $company = new Companies($u->getSchool());
-        $data['company_name'] = $company->getName();
-        $data['user_email'] = $u->getEmail();
-
-        $this->loadTemplate('unauthorized', $data);
-    }
 }

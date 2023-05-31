@@ -2,11 +2,11 @@
 class BoardRequests extends model
 {
 
-	public function getList($id_company)
+	public function getList($offset, $id_company)
 	{
 		$array = array();
 
-		$sql = $this->db->prepare("SELECT * FROM boardrequests WHERE id_company = :id_company");
+		$sql = $this->db->prepare("SELECT * FROM boardrequests WHERE id_company = :id_company LIMIT $offset, 15");
 		$sql->bindValue(":id_company", $id_company);
 		$sql->execute();
 
@@ -17,6 +17,26 @@ class BoardRequests extends model
 		return $array;
 	}
 
+	public function getSearch($request_search)
+	{
+
+		$array = array();
+
+		$sql = $this->db->prepare("SELECT * FROM boardrequests WHERE license_plate LIKE '%$request_search%' OR license_name LIKE '%$request_search%' OR cpf LIKE '%$request_search%'");
+		$sql->execute();
+
+		if ($sql->rowCount() > 0) {
+			$array = $sql->fetchAll();
+		}
+
+		return $array;
+	}
+
+
+	// WHERE 
+	// 			students.student_name 
+	// 		LIKE 
+	// 			'%$sp%' 
 
 	// public function getListSeries($id, $school_id)
 	// {
@@ -136,69 +156,61 @@ class BoardRequests extends model
 	// }
 
 
-	// public function getInfo($id, $school_id)
-	// {
-	// 	$array = array();
-
-	// 	$sql = $this->db->prepare("
-	// 	SELECT 
-	// 		students.*,
-	// 		series.series_name AS series_name
-	// 	FROM 
-	// 		students 
-	// 	LEFT JOIN
-	// 		series ON students.series_id = series.id
-	// 	WHERE 
-	// 		students.id = :id AND students.school_id = :school_id");
-	// 	$sql->bindValue(":id", $id);
-	// 	$sql->bindValue("school_id", $school_id);
-	// 	$sql->execute();
-
-	// 	if ($sql->rowCount() > 0) {
-	// 		$array = $sql->fetch();
-	// 	}
-
-	// 	return $array;
-	// }
-
-	// public function getCount($school_id)
-	// {
-	// 	$r = 0;
-
-	// 	$sql = $this->db->prepare("SELECT COUNT(*) as c FROM students WHERE school_id = :school_id");
-	// 	$sql->bindValue(':school_id',$school_id);
-	// 	$sql->execute();
-	// 	$row = $sql->fetch();
-
-	// 	$r = $row['c'];
-
-
-
-	// 	return $r;
-	// }
-
-	public function create($school_id, $student_name, $series_id)
+	public function getInfo($id, $id_company)
 	{
+		$array = array();
 
-		$sql = $this->db->prepare("INSERT INTO  students SET school_id = :school_id, student_name = :student_name, series_id = :series_id");
-		$sql->bindValue(":school_id", $school_id);
-		$sql->bindValue(":student_name", $student_name);
-		$sql->bindValue(":series_id", $series_id);
+		$sql = $this->db->prepare("SELECT * FROM boardrequests WHERE id = :id AND id_company = :id_company");
+		$sql->bindValue(":id", $id);
+		$sql->bindValue("id_company", $id_company);
 		$sql->execute();
 
-		$student_id =  $this->db->lastInsertId();
-		header("Location: " . BASE_URL . "students/selectclasses/" . $student_id);
+		if ($sql->rowCount() > 0) {
+			$array = $sql->fetch();
+		}
+
+		return $array;
 	}
 
-	// public function updateClasses($id, $school_id, $student_class_id)
-	// {
+	public function getCount($id_company)
+	{
+		$r = 0;
 
-	// 	$sql = $this->db->prepare("UPDATE students SET student_class_id = :student_class_id WHERE id = :id AND school_id = :school_id");
-	// 	$sql->bindValue(":id", $id);
-	// 	$sql->bindValue(":school_id", $school_id);
-	// 	$sql->bindValue(":student_class_id", $student_class_id);
-	// 	$sql->execute();
-	// }
+		$sql = $this->db->prepare("SELECT COUNT(*) as c FROM boardrequests WHERE id_company = :id_company");
+		$sql->bindValue(':id_company', $id_company);
+		$sql->execute();
+		$row = $sql->fetch();
+
+		$r = $row['c'];
+
+
+
+		return $r;
+	}
+
+	public function create($license_plate, $license_name, $cpf, $phone, $plate_type, $user_id, $id_company)
+	{
+
+		$sql = $this->db->prepare("INSERT INTO  boardrequests SET license_plate = :license_plate, license_name = :license_name, cpf = :cpf, phone = :phone, plate_type = :plate_type, user_id = :user_id, id_company = :id_company, status = 1, request_date = NOW()");
+		$sql->bindValue(":license_plate", $license_plate);
+		$sql->bindValue(":license_name", $license_name);
+		$sql->bindValue(":cpf", $cpf);
+		$sql->bindValue(":phone", $phone);
+		$sql->bindValue(":plate_type", $plate_type);
+		$sql->bindValue(":user_id", $user_id);
+		$sql->bindValue(":id_company", $id_company);
+		$sql->execute();
+	}
+
+	public function changeStatus($id, $status, $id_company)
+	{
+
+		$sql = $this->db->prepare("UPDATE boardrequests SET status = :status WHERE id = :id AND id_company = :id_company");
+		$sql->bindValue(":id", $id);
+		$sql->bindValue(":status", $status);
+		$sql->bindValue(":id_company", $id_company);
+		$sql->execute();
+	}
 
 	// public function update($id, $school_id, $student_name, $series_id)
 	// {
