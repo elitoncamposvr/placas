@@ -212,18 +212,21 @@ class BoardRequests extends model
 		$sql->execute();
 	}
 
-	// public function update($id, $school_id, $student_name, $series_id)
-	// {
+	public function update($id, $license_plate, $license_name, $cpf, $phone, $plate_type, $user_id, $id_company)
+	{
 
-	// 	$sql = $this->db->prepare("UPDATE students SET student_name = :student_name, series_id = :series_id WHERE id = :id AND school_id = :school_id");
-	// 	$sql->bindValue(":id", $id);
-	// 	$sql->bindValue(":school_id", $school_id);
-	// 	$sql->bindValue(":student_name", $student_name);
-	// 	$sql->bindValue(":series_id", $series_id);
-	// 	$sql->execute();
+		$sql = $this->db->prepare("UPDATE boardrequests SET license_plate = :license_plate, license_name = :license_name, cpf = :cpf, phone = :phone, plate_type = :plate_type, user_id = :user_id WHERE id = :id AND id_company = :id_company");
+		$sql->bindValue(":id", $id);
+		$sql->bindValue(":license_plate", $license_plate);
+		$sql->bindValue(":license_name", $license_name);
+		$sql->bindValue(":cpf", $cpf);
+		$sql->bindValue(":phone", $phone);
+		$sql->bindValue(":plate_type", $plate_type);
+		$sql->bindValue(":user_id", $user_id);
+		$sql->bindValue(":id_company", $id_company);
+		$sql->execute();
 
-	// 	header("Location: " . BASE_URL . "students/selectclasses/" . $id);
-	// }
+	}
 
 	// public function searchStudent($sp, $school_id)
 	// {

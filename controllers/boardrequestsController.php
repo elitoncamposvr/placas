@@ -58,6 +58,28 @@ class boardrequestsController extends controller
         $this->loadTemplate("boardrequests_create", $data);
     }
 
+    public function update($id)
+    {
+        $data = array();
+        $u = new Users();
+        $rq = new BoardRequests();
+        $u->setLoggedUser();
+
+        if (isset($_POST['license_plate']) && !empty($_POST['license_plate'])) {
+            $license_plate = addslashes($_POST['license_plate']);
+            $license_name = addslashes($_POST['license_name']);
+            $cpf = addslashes($_POST['cpf']);
+            $phone = addslashes($_POST['phone']);
+            $plate_type = addslashes($_POST['plate_type']);
+
+            $rq->update($id, $license_plate, $license_name, $cpf, $phone, $plate_type, $u->getId(), $u->getCompany());
+            header("Location: " . BASE_URL . "boardrequests");
+        }
+        
+        $data['request_info'] = $rq->getInfo($id, $u->getCompany());
+        $this->loadTemplate("boardrequests_update", $data);
+    }
+
     public function show($id)
     {
         $data = array();
