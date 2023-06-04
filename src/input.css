@@ -39,6 +39,7 @@
     .btn-secondary {
         @apply bg-slate-50 text-sky-950 py-2 px-4 rounded-md;
     }
+
     .btn-cancel {
         @apply bg-red-600 text-white py-2 px-4 rounded-md;
     }
@@ -83,12 +84,32 @@
         @apply bg-slate-200 rounded-md py-1.5 px-3 mx-1;
     }
 
-    .pagination-active{
+    .pagination-active {
         @apply bg-sky-950 text-white;
     }
 
-    .flash-info{
+    .flash-info {
         @apply w-full border-2 border-sky-700 p-3 bg-sky-50 flex justify-center rounded-md items-center my-5;
+    }
+
+    .card-field{
+        @apply w-full grid grid-cols-4 gap-x-3;
+    }
+
+    .card {
+        @apply bg-slate-300 rounded-md p-2.5;
+    }
+
+    .card-number{
+        @apply text-center text-3xl font-semibold text-sky-800 mt-3;
+    }
+
+    .card-description{
+        @apply text-center py-4;
+    }
+
+    footer{
+        @apply w-full text-center absolute bottom-0 py-2 bg-slate-300;
     }
 
 }

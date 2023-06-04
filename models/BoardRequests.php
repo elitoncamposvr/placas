@@ -32,11 +32,48 @@ class BoardRequests extends model
 		return $array;
 	}
 
+	public function getPending($id_company)
+	{
+		$r = 0;
 
-	// WHERE 
-	// 			students.student_name 
-	// 		LIKE 
-	// 			'%$sp%' 
+		$sql = $this->db->prepare("SELECT COUNT(*) as c FROM boardrequests WHERE id_company = :id_company");
+		$sql->bindValue(':id_company', $id_company);
+		$sql->execute();
+
+		$row = $sql->fetch();
+		$r = $row['c'];
+
+		return $r;
+	}
+
+	public function getLastDaysList($id_company)
+	{
+		$r = 0;
+
+		$sql = $this->db->prepare("SELECT COUNT(*) as c FROM boardrequests WHERE request_date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() AND id_company = :id_company");
+		$sql->bindValue(':id_company', $id_company);
+		$sql->execute();
+
+		$row = $sql->fetch();
+		$r = $row['c'];
+
+		return $r;
+	}
+
+	public function getCurrentMonthList($id_company)
+	{
+		$r = 0;
+
+		$sql = $this->db->prepare("SELECT COUNT(*) as c FROM boardrequests WHERE MONTH(request_date) = MONTH(NOW()) AND id_company = :id_company");
+		$sql->bindValue(':id_company', $id_company);
+		$sql->execute();
+
+		$row = $sql->fetch();
+		$r = $row['c'];
+
+		return $r;
+	}
+
 
 	// public function getListSeries($id, $school_id)
 	// {
@@ -225,7 +262,6 @@ class BoardRequests extends model
 		$sql->bindValue(":user_id", $user_id);
 		$sql->bindValue(":id_company", $id_company);
 		$sql->execute();
-
 	}
 
 	// public function searchStudent($sp, $school_id)
